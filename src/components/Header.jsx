@@ -7,7 +7,7 @@ const Header = () =>
     return(
         <MainHeader>
             <NavLink to="/" alt="" title="">
-            <h2><span>A</span>rju<span>N</span>egi</h2>
+            <h2>ArjuNegi</h2>
             </NavLink>
             <Navbar />
         </MainHeader>
@@ -22,8 +22,9 @@ align-items:center;
 
 h2
 {
-    font-weight:700;
+    font-weight:900;
     color:#6254F3;
+    margin-top:-15px;
 }
 `;
 export default Header;

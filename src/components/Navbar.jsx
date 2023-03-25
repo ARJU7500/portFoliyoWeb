@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { CgFormatJustify } from "react-icons/cg";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import Button from "../styles/Button";
 import styled from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
 const Navbar = () =>
 {
-    const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
+  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
 const Nav = styled.nav`
 .navList
 {
     display:flex;
     gap:4.8rem;
+    align-items:center;
 
     li{
         list-style:none;
@@ -60,6 +64,7 @@ const Nav = styled.nav`
         position: absolute;
         top: 0;
         left: 0;
+        align-items:center;
         background-color: #0A1435;
          display: flex;
         justify-content: center;
@@ -114,14 +119,29 @@ const Nav = styled.nav`
                         <NavLink onClick={() => setOpenMenu(false)} to="/" className="nav_Link" >Home</NavLink>
                     </li>
                     <li>
-                        <NavLink onClick={() => setOpenMenu(false)} to="/skill" className="nav_Link" > MY Skill</NavLink>
+                        <NavLink onClick={() => setOpenMenu(false)} to="/skill" className="nav_Link" >Skill</NavLink>
                     </li>
                     <li>
-                        <NavLink onClick={() => setOpenMenu(false)} to="/about" className="nav_Link" > About ME</NavLink>
+                        <NavLink onClick={() => setOpenMenu(false)} to="/about" className="nav_Link" > About</NavLink>
                     </li>
                     <li>
-                        <NavLink onClick={() => setOpenMenu(false)} to="/contact" className="nav_Link" > MY Contact</NavLink>
+                        <NavLink onClick={() => setOpenMenu(false)} to="/contact" className="nav_Link" >Contact</NavLink>
                     </li>
+                    
+                      {isAuthenticated && 
+                        <li><h3 style={{color:"#6254F3"}}>welcome {user.nickname}</h3>
+                    </li>}
+    <li>
+      {isAuthenticated ? (
+        <li><Button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+      Log Out
+    </Button></li>
+      ) : (
+        <li>
+                    <Button onClick={() => loginWithRedirect()}>Log In</Button>
+                    </li>
+      )};
+    </li>
                 </ul>
                 {/* mobile navbar buton */}
                 <div className="mobile-navbar-btn">
